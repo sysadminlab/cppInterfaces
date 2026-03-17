@@ -152,7 +152,7 @@ virtual int area2() const = 0;
             priv_methods.forEach(method => {
                 output += `    ${method}\n`;
             });
-
+            output += '\n';
             output += 'protected:\n';
             output += `    // Default constructor
     ${className}() = default;
