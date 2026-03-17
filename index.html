@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Abstract Classes Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        #implementation {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .button-group {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>C++ Abstract Classes Generator</h1>
+        <form id="classForm">
+            <div class="form-group">
+                <label for="className">Class Name:</label>
+                <input type="text" id="className" required>
+            </div>
+            <div class="form-group">
+                <label for="includes">Include Headers (one per line):</label>
+                <textarea id="includes" rows="3" placeholder="#include <iostream> &#10;#include <string>">
+#include <iostream>
+#include <string>
+                </textarea>
+            </div>
+            <div class="form-group">
+                <label for="variables">Variables (one per line):</label>
+                <textarea id="variables" rows="3" placeholder="type variable_name; &#10;type variable_name2;"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="methods">Private Methods (one per line):</label>
+                <textarea id="priv_methods" rows="5" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="methods">Public Methods (one per line):</label>
+                <textarea id="pub_methods" rows="5" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;">
+virtual int area1() const = 0;
+virtual int area2() const = 0;
+                </textarea>
+            </div>
+            <div class="button-group">
+                <button type="button" onclick="generateClass()">Generate C++ Class</button>
+                <button type="button" onclick="saveToFile()">Save to File</button>
+            </div>
+        </form>
+        
+        <div id="output"></div>
+        <div class="button-group">
+                <button type="button" onclick="copyImplementation()">Copy Implementation</button>
+            </div>
+        <div id="implementation">Implementation will appear here</div>
+    </div>
+
+    <script>
+        function generateClass() {
+            const className = document.getElementById('className').value;
+            const priv_methods = document.getElementById('priv_methods').value.split('\n').filter(m => m.trim() !== '');
+            const pub_methods = document.getElementById('pub_methods').value.split('\n').filter(m => m.trim() !== '');
+            const variables = document.getElementById('variables').value.split('\n').filter(v => v.trim() !== '');
+            const includes = document.getElementById('includes').value.split('\n').filter(i => i.trim() !== '');
+
+            if (!className) {
+                alert("Please enter a class name.");
+                return;
+            }
+
+            let output = '';
+            const classNameUpper = className.toUpperCase();
+            output += `#ifndef ${classNameUpper}\n`;
+            output += `#define ${classNameUpper}\n\n`;
+            // Include headers
+            includes.forEach(include => {
+                output += `${include}\n`;
+            });
+            
+            output += '\n';
+            
+            // Class declaration
+            output += `class ${className} {\n`;
+            output += 'private:\n';
+            
+            // Virtual methods
+            priv_methods.forEach(method => {
+                output += `    ${method}\n`;
+            });
+
+            output += 'protected:\n';
+            output += `    // Default constructor
+    ${className}() = default;
+    // Constructor with parameters
+    explicit ${className}(int id) : id_(id) {}
+    // Copy constructor
+    ${className}(const ${className}& other) = default;
+    // Move constructor
+    ${className}(${className}&& other) noexcept = default;
+    // Copy assignment
+    ${className}& operator=(const ${className}& other) = default;
+    // Move assignment
+    ${className}& operator=(${className}&& other) noexcept = default;\n\n`
+            output += 'public:\n';
+            
+            // Add virtual destructor
+            output += `    virtual ~${className}() = default;\n`;
+            
+            // Public methods
+            pub_methods.forEach(method => {
+                output += `    ${method}\n`;
+            });
+            
+            output += '\n';
+            
+            // Variables
+            variables.forEach(variable => {
+                output += `    ${variable}\n`;
+            });
+            
+            output += '};\n';
+            output += `#endif //${classNameUpper}\n`;
+            
+            document.getElementById('output').textContent = output;
+            
+            // Generate implementation
+            generateImplementation(className, priv_methods, pub_methods);
+        }
+        
+        function generateImplementation(className, priv_methods, pub_methods) {
+            let implementation = '';
+            
+            // Generate header section
+            const classNameUpper = className.toUpperCase();
+            implementation += `#ifndef ${classNameUpper}IMPL\n`;
+            implementation += `#define ${classNameUpper}IMPL\n\n`;
+
+            implementation += `#include "${className}.hpp"\n\n`;
+
+            implementation += `class ${className}Impl: public ${className} {\n`;
+            implementation += 'public:\n';
+            implementation += `    using ${className}::${className}; // Constructors\n`;
+            pub_methods.forEach(method => {
+                // Remove any trailing semicolon
+                method = method.trim();
+                if (method.endsWith(';')) {
+                    method = method.slice(0, -1);
+                }
+                
+                // Extract method signature
+                // Pattern to match: virtual return_type method_name(parameters) = 0;
+                const match = method.match(/virtual\s+(\w+(?:\s*\w+)*)\s+(\w+)\s*\(([^)]*)\)/);
+                if (match) {
+                    const returnType = match[1];
+                    const methodName = match[2];
+                    implementation += `    ${returnType} ${methodName}() const override;\n`;
+                }
+            });
+            
+            implementation += `};\n\n#endif //${classNameUpper}\n\n`;
+            implementation += `//---------------------------------\n\n`;
+            implementation += `#include "${className}Impl.hpp"\n`;
+            // Add implementation for each method
+            const allMethods = [...priv_methods, ...pub_methods];
+            allMethods.forEach(method => {
+                // Remove any trailing semicolon
+                method = method.trim();
+                if (method.endsWith(';')) {
+                    method = method.slice(0, -1);
+                }
+                
+                // Extract method signature
+                const match = method.match(/virtual\s+(\w+(?:\s*\w+)*)\s+(\w+)\s*\(([^)]*)\)/);
+                if (match) {
+                    const returnType = match[1];
+                    const methodName = match[2];
+                    const parameters = match[3] ? match[3].trim() : '';
+                    
+                    implementation += `\n${returnType} ${className}Impl::${methodName}(${parameters}) {\n`;
+                    implementation += `    // TODO: Implement ${methodName}\n`;
+                    if (returnType !== 'void') {
+                        implementation += `    return {};\n`;
+                    }
+                    implementation += '}\n';
+                }
+            });
+            
+            document.getElementById('implementation').textContent = implementation;
+        }
+        
+        function saveToFile() {
+            const content = document.getElementById('output').textContent;
+            const className = document.getElementById('className').value;
+            
+            if (!content) {
+                alert("Nothing to save. Generate a class first.");
+                return;
+            }
+            
+            if (!className) {
+                alert("Please enter a class name.");
+                return;
+            }
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${className}.hpp`;
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+        }
+        
+        function copyImplementation() {
+            const implementation = document.getElementById('implementation').textContent;
+            
+            if (!implementation || implementation === 'Implementation will appear here') {
+                alert("No implementation to copy. Generate a class first.");
+                return;
+            }
+            
+            navigator.clipboard.writeText(implementation).then(() => {
+                alert("Implementation copied to clipboard!");
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert("Failed to copy implementation to clipboard");
+            });
+        }
+    </script>
+</body>
+</html>
