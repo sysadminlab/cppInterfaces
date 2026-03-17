@@ -144,7 +144,10 @@ virtual int area2() const = 0;
             // Class declaration
             output += `class ${className} {\n`;
             output += 'private:\n';
-            
+            // Variables
+            variables.forEach(variable => {
+                output += `    ${variable}\n`;
+            });
             // Virtual methods
             priv_methods.forEach(method => {
                 output += `    ${method}\n`;
@@ -171,13 +174,6 @@ virtual int area2() const = 0;
             // Public methods
             pub_methods.forEach(method => {
                 output += `    ${method}\n`;
-            });
-            
-            output += '\n';
-            
-            // Variables
-            variables.forEach(variable => {
-                output += `    ${variable}\n`;
             });
             
             output += '};\n';
