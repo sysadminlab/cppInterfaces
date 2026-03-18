@@ -132,25 +132,25 @@ virtual int method1() = 0;
 
             let  = '';
             const classNameUpper = className.toUpperCase();
-             += `#ifndef ${classNameUpper}\n`;
-             += `#define ${classNameUpper}\n\n`;
+            output += `#ifndef ${classNameUpper}\n`;
+            output += `#define ${classNameUpper}\n\n`;
             // Include headers
             includes.forEach(include => {
-                 += `${include}\n`;
+                 output += `${include}\n`;
             });
             
-             += '\n';
+             output += '\n';
             
             // Class declaration
-             += `class ${className} {\n`;
-             += 'private:\n';
+             output += `class ${className} {\n`;
+             output += 'private:\n';
             // Variables
             variables.forEach(variable => {
-                 += `    ${variable}\n`;
+                 output += `    ${variable}\n`;
             });
             // Virtual methods
             priv_methods.forEach(method => {
-                 += `    ${method}\n`;
+                 output += `    ${method}\n`;
             });
             output += '\n';
             output += 'protected:\n';
