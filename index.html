@@ -105,6 +105,7 @@ virtual int method1() = 0;
             </div>
             <div class="button-group">
                 <button type="button" onclick="generateClass()">Generate C++ Class</button>
+                <button type="button" onclick="copyAbstract()">Copy Class</button>
                 <button type="button" onclick="saveToFile()">Save to File</button>
             </div>
         </form>
@@ -129,27 +130,27 @@ virtual int method1() = 0;
                 return;
             }
 
-            let output = '';
+            let  = '';
             const classNameUpper = className.toUpperCase();
-            output += `#ifndef ${classNameUpper}\n`;
-            output += `#define ${classNameUpper}\n\n`;
+             += `#ifndef ${classNameUpper}\n`;
+             += `#define ${classNameUpper}\n\n`;
             // Include headers
             includes.forEach(include => {
-                output += `${include}\n`;
+                 += `${include}\n`;
             });
             
-            output += '\n';
+             += '\n';
             
             // Class declaration
-            output += `class ${className} {\n`;
-            output += 'private:\n';
+             += `class ${className} {\n`;
+             += 'private:\n';
             // Variables
             variables.forEach(variable => {
-                output += `    ${variable}\n`;
+                 += `    ${variable}\n`;
             });
             // Virtual methods
             priv_methods.forEach(method => {
-                output += `    ${method}\n`;
+                 += `    ${method}\n`;
             });
             output += '\n';
             output += 'protected:\n';
@@ -273,6 +274,22 @@ virtual int method1() = 0;
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
             }, 100);
+        }
+
+        function copyAbstract() {
+            const abstract = document.getElementById('output').textContent;
+            
+            if (!abstract || abstract === 'Implementation will appear here') {
+                alert("No abstract content to copy. Generate a class first.");
+                return;
+            }
+            
+            navigator.clipboard.writeText(abstract).then(() => {
+                alert("Abstract class copied to clipboard!");
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert("Failed to copy implementation to clipboard");
+            });
         }
         
         function copyImplementation() {
