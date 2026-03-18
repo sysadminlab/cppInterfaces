@@ -193,8 +193,6 @@ virtual int method1() = 0;
             implementation += `#ifndef ${classNameUpper}IMPL\n`;
             implementation += `#define ${classNameUpper}IMPL\n\n`;
 
-            implementation += `#include "${className}.hpp"\n\n`;
-
             implementation += `class ${className}Impl: public ${className} {\n`;
             implementation += 'public:\n';
             implementation += `    using ${className}::${className}; // Constructors\n`;
