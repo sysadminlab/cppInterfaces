@@ -100,8 +100,7 @@
             <div class="form-group">
                 <label for="methods">Public Methods (one per line):</label>
                 <textarea id="pub_methods" rows="5" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;">
-virtual int area1() const = 0;
-virtual int area2() const = 0;
+virtual int method1() const = 0;
                 </textarea>
             </div>
             <div class="button-group">
@@ -157,7 +156,7 @@ virtual int area2() const = 0;
             output += `    // Default constructor
     ${className}() = default;
     // Constructor with parameters
-    explicit ${className}(int id) : id_(id) {}
+    //explicit ${className}(int id) : id_(id) {}
     // Copy constructor
     ${className}(const ${className}& other) = default;
     // Move constructor
@@ -211,7 +210,7 @@ virtual int area2() const = 0;
                 if (match) {
                     const returnType = match[1];
                     const methodName = match[2];
-                    implementation += `    ${returnType} ${methodName}() const override;\n`;
+                    implementation += `    ${returnType} ${methodName}() override;\n`;
                 }
             });
             
