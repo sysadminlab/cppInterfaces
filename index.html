@@ -228,11 +228,14 @@ virtual int method1() = 0;
         
         <div id="output"></div>
         <div class="button-group">
-                <button type="button" onclick="copyImplementation()">Copy Implementation</button>
-                <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
+            <button type="button" onclick="copyDiv('implementation')">Copy Implementation</button>
+            <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
             <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
-            </div>
+        </div>
         <div id="implementation">Implementation will appear here</div>
+        <div class="button-group">
+            <button type="button" onclick="copyDiv('implementationcpp')">Copy Implementation</button>
+        </div>
         <div id="implementationcpp">Implementation will appear here</div>
     </div>
 
@@ -434,19 +437,19 @@ virtual int method1() = 0;
             });
         }
         
-        function copyImplementation() {
-            const implementation = document.getElementById('implementation').textContent;
+        function copyDiv(divName) {
+            const divContent = document.getElementById(divName).textContent;
             
-            if (!implementation || implementation === 'Implementation will appear here') {
-                alert("No implementation to copy. Generate a class first.");
+            if (!divContent || divContent === divName + ' will appear here') {
+                alert("No content to copy. Generate a class first.");
                 return;
             }
             
-            navigator.clipboard.writeText(implementation).then(() => {
-                alert("Implementation copied to clipboard!");
+            navigator.clipboard.writeText(divContent).then(() => {
+                alert(divName + " copied to clipboard!");
             }).catch(err => {
                 console.error('Failed to copy: ', err);
-                alert("Failed to copy implementation to clipboard");
+                alert("Failed to copy content to clipboard");
             });
         }
 
