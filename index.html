@@ -217,6 +217,7 @@ virtual int method1() = 0;
             <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
             </div>
         <div id="implementation">Implementation will appear here</div>
+        <div id="implementationcpp">Implementation will appear here</div>
     </div>
 
     <button class="theme-switcher" onclick="toggleTheme()" id="themeSwitcher">☀️</button>
@@ -309,7 +310,7 @@ virtual int method1() = 0;
         
         function generateImplementation(className, priv_methods, pub_methods) {
             let implementation = '';
-            
+           
             // Generate header section
             const classNameUpper = className.toUpperCase();
             implementation += `#ifndef ${classNameUpper}IMPL\n`;
@@ -339,8 +340,9 @@ virtual int method1() = 0;
             });
             
             implementation += `};\n\n#endif //${classNameUpper}\n\n`;
-            implementation += `//---------------------------------\n\n`;
-            implementation += `#include "${className}Impl.hpp"\n`;
+
+            let implementationcpp = '';
+            implementationcpp += `#include "${className}Impl.hpp"\n`;
             // Add implementation for each method
             const allMethods = [...priv_methods, ...pub_methods];
             allMethods.forEach(method => {
@@ -357,16 +359,17 @@ virtual int method1() = 0;
                     const methodName = match[2];
                     const parameters = match[3] ? match[3].trim() : '';
                     
-                    implementation += `\n${returnType} ${className}Impl::${methodName}(${parameters}) {\n`;
-                    implementation += `    // TODO: Implement ${methodName}\n`;
+                    implementationcpp += `\n${returnType} ${className}Impl::${methodName}(${parameters}) {\n`;
+                    implementationcpp += `    // TODO: Implement ${methodName}\n`;
                     if (returnType !== 'void') {
-                        implementation += `    return {};\n`;
+                        implementationcpp += `    return {};\n`;
                     }
-                    implementation += '}\n';
+                    implementationcpp += '}\n';
                 }
             });
             
             document.getElementById('implementation').textContent = implementation;
+            document.getElementById('implementationcpp').textContent = implementationcpp;
         }
         
         function saveToFile() {
