@@ -436,21 +436,21 @@ virtual int method1() = 0;
             fetch(fileName)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Failed to fetch Makefile.common');
+                        throw new Error('Failed to fetch ' + fileName);
                     }
                     return response.text();
                 })
                 .then(data => {
                     navigator.clipboard.writeText(data).then(() => {
-                        alert("Makefile template copied to clipboard!");
+                        alert(fileName + " copied to clipboard!");
                     }).catch(err => {
                         console.error('Failed to copy: ', err);
-                        alert("Failed to copy Makefile template to clipboard");
+                        alert("Failed to copy "+ fileName+" to clipboard");
                     });
                 })
                 .catch(error => {
-                    console.error('Error reading Makefile.common: ', error);
-                    alert("Failed to read Makefile.common file");
+                    console.error('Error reading ' + fileName, error);
+                    alert("Failed to read " + fileName);
                 });
         }
     </script>
