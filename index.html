@@ -68,18 +68,7 @@
             color: #333;
             transition: background-color 0.3s, color 0.3s;
         }
-        #implementation {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            color: #333;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        #implementationcpp {
+        .implementation {
             margin-top: 20px;
             padding: 15px;
             background-color: #f9f9f9;
@@ -123,12 +112,7 @@
             color: #e0e0e0;
             border-color: #555;
         }
-        #implementation.dark-theme {
-            background-color: #3d3d3d;
-            color: #e0e0e0;
-            border-color: #555;
-        }
-        #implementation.dark-theme {
+        .implementation.dark-theme {
             background-color: #3d3d3d;
             color: #e0e0e0;
             border-color: #555;
@@ -232,11 +216,11 @@ virtual int method1() = 0;
             <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
             <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
         </div>
-        <div id="implementation">Implementation will appear here</div>
+        <div id="impl" class="implementation">Implementation header will appear here</div>
         <div class="button-group">
             <button type="button" onclick="copyDiv('implementationcpp')">Copy Implementation</button>
         </div>
-        <div id="implementationcpp">Implementation will appear here</div>
+        <div id="impcpp" class="implementation">Implementation code will appear here</div>
     </div>
 
     <button class="theme-switcher" onclick="toggleTheme()" id="themeSwitcher">☀️</button>
@@ -387,8 +371,8 @@ virtual int method1() = 0;
                 }
             });
             
-            document.getElementById('implementation').textContent = implementation;
-            document.getElementById('implementationcpp').textContent = implementationcpp;
+            document.getElementById('impl').textContent = implementation;
+            document.getElementById('implcpp').textContent = implementationcpp;
         }
         
         function saveToFile() {
@@ -424,7 +408,7 @@ virtual int method1() = 0;
         function copyAbstract() {
             const abstract = document.getElementById('output').textContent;
             
-            if (!abstract || abstract === 'Implementation will appear here') {
+            if (!abstract || abstract === 'Interface will appear here') {
                 alert("No abstract content to copy. Generate a class first.");
                 return;
             }
@@ -439,12 +423,7 @@ virtual int method1() = 0;
         
         function copyDiv(divName) {
             const divContent = document.getElementById(divName).textContent;
-            
-            if (!divContent || divContent === divName + ' will appear here') {
-                alert("No content to copy. Generate a class first.");
-                return;
-            }
-            
+                    
             navigator.clipboard.writeText(divContent).then(() => {
                 alert(divName + " copied to clipboard!");
             }).catch(err => {
