@@ -1,0 +1,79 @@
+# 1. Project Settings
+LIB_NAME     := my_shared_lib
+TARGET       := app
+
+CXX          := g++
+CXXFLAGS     := -std=c++17 -Wall -Wextra -Werror -fPIC -Iinclude -MMD -MP
+LDFLAGS      := -L. -Wl,-rpath,. 
+
+# 2. Directories
+SRC_DIR      := src
+LIB_SRC_DIR  := src/lib
+INC_DIR      := include
+OBJ_DIR      := obj
+LIB_OBJ_DIR  := obj/lib
+
+# 3. Files
+LIB_SRCS     := $(wildcard $(LIB_SRC_DIR)/*.cpp)
+LIB_OBJS     := $(LIB_SRCS:$(LIB_SRC_DIR)/%.cpp=$(LIB_OBJ_DIR)/%.o)
+APP_SRCS     := $(SRC_DIR)/main.cpp
+APP_OBJS     := $(OBJ_DIR)/main.o
+DEPS         := $(LIB_OBJS:.o=.d) $(APP_OBJS:.o=.d)
+SHARED_LIB   := lib$(LIB_NAME).so
+
+# 4. Build Rules
+.PHONY: all clean re dir help
+
+# Default goal: show help or build all
+all: dir $(TARGET)
+
+# Help target: explains available commands and structure
+help:
+	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Targets:"
+	@echo "  all     - Default. Create directories and build the project"
+	@echo "  dir     - Create project structure (src/lib, include, obj/lib)"
+	@echo "  clean   - Remove all build artifacts (obj/, binaries, libraries)"
+	@echo "  re      - Clean and rebuild everything from scratch"
+	@echo "  help    - Show this help message"
+	@echo ""
+	@echo "Project Structure:"
+	@echo "  $(SRC_DIR)/main.cpp      - Main application source"
+	@echo "  $(LIB_SRC_DIR)/*.cpp     - Shared library sources"
+	@echo "  $(INC_DIR)/*.hpp         - Header files"
+	@echo "  $(SHARED_LIB)        - Generated dynamic library"
+	@echo "  $(TARGET)              - Generated executable"
+
+# Create project structure
+dir:
+	@mkdir -p $(LIB_SRC_DIR) $(INC_DIR) $(LIB_OBJ_DIR)
+	@echo "--- Directories created ---"
+
+# Link the final executable
+$(TARGET): $(SHARED_LIB) $(APP_OBJS)
+	$(CXX) $(APP_OBJS) -o $@ -l$(LIB_NAME) $(LDFLAGS)
+	@echo "--- Build complete: $(TARGET) ---"
+
+# Create the shared library
+$(SHARED_LIB): $(LIB_OBJS)
+	$(CXX) -shared -o $@ $(LIB_OBJS)
+	@echo "--- Shared library created: $@ ---"
+
+# Compile library objects
+$(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Compile main application object
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Include dependency files
+-include $(DEPS)
+
+# 5. Maintenance
+clean:
+	rm -rf $(OBJ_DIR) $(SHARED_LIB) $(TARGET)
+	@echo "--- Project cleaned ---"
+
+re: clean all
