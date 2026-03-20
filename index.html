@@ -213,7 +213,8 @@ virtual int method1() = 0;
         <div id="output"></div>
         <div class="button-group">
                 <button type="button" onclick="copyImplementation()">Copy Implementation</button>
-                <button type="button" onclick="copyMakefileTemplate()">Copy Makefile template</button>
+                <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
+            <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
             </div>
         <div id="implementation">Implementation will appear here</div>
     </div>
@@ -430,9 +431,9 @@ virtual int method1() = 0;
             });
         }
 
-        function copyMakefileTemplate() {
+        function copyTemplate(fileName) {
             // Reading Makefile.common from the server using fetch
-            fetch('Makefile.common')
+            fetch(fileName)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Failed to fetch Makefile.common');
