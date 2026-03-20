@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+// Put headers into ./include/ directory
+// Put library *.cpp into ./src/lib/
+#include ""
+
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        std::cout << "Usage: " << argv[0] << " [arguments...]" << std::endl;
+        return 0;
+    }
+
+    std::cout << "Program name: " << argv[0] << "\n";
+    std::cout << "Arguments count: " << argc - 1 << "\n";
+    
+    /* Output arguments
+    for (int i = 1; i < argc; ++i) {
+        std::string arg = argv[i];
+        std::cout << "Arg[" << i << "]: " << arg << "\n";
+    } */
+
+    // Your code
+
+    return 0;
+}
