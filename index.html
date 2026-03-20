@@ -213,6 +213,7 @@ virtual int method1() = 0;
         <div id="output"></div>
         <div class="button-group">
                 <button type="button" onclick="copyImplementation()">Copy Implementation</button>
+                <button type="button" onclick="copyMakefileTemplate()">Copy Makefile template</button>
             </div>
         <div id="implementation">Implementation will appear here</div>
     </div>
@@ -427,6 +428,29 @@ virtual int method1() = 0;
                 console.error('Failed to copy: ', err);
                 alert("Failed to copy implementation to clipboard");
             });
+        }
+
+        function copyMakefileTemplate() {
+            // Reading Makefile.common from the server using fetch
+            fetch('Makefile.common')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch Makefile.common');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    navigator.clipboard.writeText(data).then(() => {
+                        alert("Makefile template copied to clipboard!");
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                        alert("Failed to copy Makefile template to clipboard");
+                    });
+                })
+                .catch(error => {
+                    console.error('Error reading Makefile.common: ', error);
+                    alert("Failed to read Makefile.common file");
+                });
         }
     </script>
 </body>
