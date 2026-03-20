@@ -1,6 +1,6 @@
 # 1. Project Settings
-LIB_NAME     := my_shared_lib
-TARGET       := app
+LIB_NAME     := myname
+TARGET       := appname.exe
 
 CXX          := g++
 CXXFLAGS     := -std=c++17 -Wall -Wextra -Werror -fPIC -Iinclude -MMD -MP
@@ -12,6 +12,7 @@ LIB_SRC_DIR  := src/lib
 INC_DIR      := include
 OBJ_DIR      := obj
 LIB_OBJ_DIR  := obj/lib
+BUILD_DIR    := build
 
 # 3. Files
 LIB_SRCS     := $(wildcard $(LIB_SRC_DIR)/*.cpp)
@@ -42,12 +43,13 @@ help:
 	@echo "  $(SRC_DIR)/main.cpp      - Main application source"
 	@echo "  $(LIB_SRC_DIR)/*.cpp     - Shared library sources"
 	@echo "  $(INC_DIR)/*.hpp         - Header files"
-	@echo "  $(SHARED_LIB)        - Generated dynamic library"
-	@echo "  $(TARGET)              - Generated executable"
+    @echo "  $(BUILD_DIR)/*           - Build directory with result files"
+	@echo "  $(SHARED_LIB)            - Generated dynamic library"
+	@echo "  $(TARGET)                - Generated executable"
 
 # Create project structure
 dir:
-	mkdir -p $(LIB_SRC_DIR) $(INC_DIR) $(LIB_OBJ_DIR)
+	mkdir -p $(LIB_SRC_DIR) $(INC_DIR) $(LIB_OBJ_DIR) $(BUILD_DIR)
 	touch $(SRC_DIR)/main.cpp
 	@echo "--- Directories created ---"
 
@@ -63,18 +65,18 @@ $(SHARED_LIB): $(LIB_OBJS)
 
 # Compile library objects
 $(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $(BUILD_DIR)/$@
 
 # Compile main application object
 $(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $(BUILD_DIR)/$@
 
 # Include dependency files
 -include $(DEPS)
 
 # 5. Maintenance
 clean:
-	rm -rf $(OBJ_DIR)/* $(SHARED_LIB)/* $(TARGET)/*
+	rm -rf $(OBJ_DIR)/* $(SHARED_LIB)/* $(TARGET)/* $(BUILD_DIR)/*
 	@echo "--- Project cleaned ---"
 
 re: clean all
