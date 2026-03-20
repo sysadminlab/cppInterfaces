@@ -47,7 +47,8 @@ help:
 
 # Create project structure
 dir:
-	@mkdir -p $(LIB_SRC_DIR) $(INC_DIR) $(LIB_OBJ_DIR)
+	mkdir -p $(LIB_SRC_DIR) $(INC_DIR) $(LIB_OBJ_DIR)
+	touch $(SRC_DIR)/main.cpp
 	@echo "--- Directories created ---"
 
 # Link the final executable
@@ -73,7 +74,7 @@ $(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp
 
 # 5. Maintenance
 clean:
-	rm -rf $(OBJ_DIR) $(SHARED_LIB) $(TARGET)
+	rm -rf $(OBJ_DIR)/* $(SHARED_LIB)/* $(TARGET)/*
 	@echo "--- Project cleaned ---"
 
 re: clean all
