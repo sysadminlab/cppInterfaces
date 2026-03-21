@@ -205,7 +205,7 @@ virtual int method1() = 0;
             </div>
             <div class="button-group">
                 <button type="button" onclick="generateClass()">Generate C++ Class</button>
-                <button type="button" onclick="copyAbstract()">Copy Class</button>
+                <button type="button" onclick="copyDiv('output')">Copy Class</button>
                 <button type="button" onclick="saveToFile()">Save to File</button>
             </div>
         </form>
@@ -404,28 +404,18 @@ virtual int method1() = 0;
                 URL.revokeObjectURL(url);
             }, 100);
         }
-
-        function copyAbstract() {
-            const abstract = document.getElementById('output').textContent;
-            
-            if (!abstract || abstract === 'Interface will appear here') {
-                alert("No abstract content to copy. Generate a class first.");
-                return;
-            }
-            
-            navigator.clipboard.writeText(abstract).then(() => {
-                alert("Abstract class copied to clipboard!");
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert("Failed to copy implementation to clipboard");
-            });
-        }
         
         function copyDiv(divName) {
-            const divContent = document.getElementById(divName).textContent;
+            const divElement = document.getElementById(divName);
+            const divContent = divElement.textContent;
+            const divColor = divElement.style.backgroundColor;
                     
             navigator.clipboard.writeText(divContent).then(() => {
-                 document.getElementById(divName).textContent = divContent + ' ✔';
+                if (currentColor === '#f9f9f9') { 
+                    element.style.backgroundColor = '#d3d3d3'; 
+                } else {
+                    element.style.backgroundColor = '#f9f9f9';
+                }
             }).catch(err => {
                 console.error('Failed to copy: ', err);
                 alert("Failed to copy content to clipboard");
