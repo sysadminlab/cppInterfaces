@@ -420,6 +420,7 @@ virtual int method1() = 0;
                 setTimeout(() => {
                     divElement.style.backgroundColor = originalColor;
                 }, 1000);
+                alert("Copy content to clipboard");
             }).catch(err => {
                 console.error('Failed to copy: ', err);
                 alert("Failed to copy content to clipboard");
