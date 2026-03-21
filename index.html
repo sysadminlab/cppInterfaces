@@ -411,7 +411,7 @@ virtual int method1() = 0;
             const divColor = divElement.style.backgroundColor;
                     
             navigator.clipboard.writeText(divContent).then(() => {
-                
+                alert("Copy content to clipboard");
             }
             }).catch(err => {
                 console.error('Failed to copy: ', err);
