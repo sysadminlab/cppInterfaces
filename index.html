@@ -200,8 +200,6 @@
                 <label for="methods">Public Methods (one per line):</label>
                 <textarea id="pub_methods" rows="5" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;">
 virtual int method1() = 0;</textarea>
-                <label for="className">Implementation Name:</label>
-                <input type="text" id="implName" required>
             </div>
             <div class="button-group">
                 <button type="button" onclick="generateClass()">Generate C++ Class</button>
@@ -213,7 +211,10 @@ virtual int method1() = 0;</textarea>
         </form>
         
         <div id="output"></div>
+        
         <div class="button-group">
+            <label for="implName">Implementation Name:</label>
+            <input type="text" id="implName" required>
             <button type="button" onclick="copyDiv('impl')">Copy Implementation header</button>
             <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
             <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
