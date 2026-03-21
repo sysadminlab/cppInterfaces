@@ -411,10 +411,10 @@ virtual int method1() = 0;
             const divColor = divElement.style.backgroundColor;
                     
             navigator.clipboard.writeText(divContent).then(() => {
-                if (currentColor === '#f9f9f9') { 
-                    element.style.backgroundColor = '#d3d3d3'; 
+                if (divColor === '#f9f9f9') { 
+                    divElement.style.backgroundColor = '#d3d3d3'; 
                 } else {
-                    element.style.backgroundColor = '#f9f9f9';
+                    divElement.style.backgroundColor = '#f9f9f9';
                 }
             }).catch(err => {
                 console.error('Failed to copy: ', err);
