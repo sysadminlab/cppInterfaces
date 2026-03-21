@@ -411,7 +411,7 @@ virtual int method1() = 0;
             const divColor = divElement.style.backgroundColor;
                     
             navigator.clipboard.writeText(divContent).then(() => {
-                if (divColor === '#f9f9f9') { 
+                if (divColor === 'rgb(249, 249, 249)') { 
                     divElement.style.backgroundColor = '#d3d3d3'; 
                 } else {
                     divElement.style.backgroundColor = '#f9f9f9';
