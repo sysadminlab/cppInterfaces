@@ -412,7 +412,6 @@ virtual int method1() = 0;
                     
             navigator.clipboard.writeText(divContent).then(() => {
                 alert("Copy content to clipboard");
-            }
             }).catch(err => {
                 console.error('Failed to copy: ', err);
                 alert("Failed to copy content to clipboard");
