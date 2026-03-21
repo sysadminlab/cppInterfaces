@@ -210,11 +210,14 @@ virtual int method1() = 0;</textarea>
             </div>
         </form>
         
-        <div id="output"></div>
+        <div id="output">Interface code will appear here</div>
         
         <div class="button-group">
             <label for="implName">Implementation Name:</label>
             <input type="text" id="implName" required>
+            <button type="button" onclick="generateImpl()">Generate Implementation Class</button>
+        </div>
+        <div class="button-group">
             <button type="button" onclick="copyDiv('impl')">Copy Implementation header</button>
             <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
             <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
@@ -311,7 +314,7 @@ virtual int method1() = 0;</textarea>
             document.getElementById('output').textContent = output;
             
             // Generate implementation
-            generateImplementation(className, priv_methods, pub_methods);
+            // generateImplementation(className, priv_methods, pub_methods);
         }
         
         function generateImplementation(className, priv_methods, pub_methods) {
