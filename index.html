@@ -410,7 +410,39 @@ virtual int method1() = 0;
             const divContent = divElement.textContent;
                     
             navigator.clipboard.writeText(divContent).then(() => {
-                divElement.style.backgroundColor = '#3d3d3d';
+               // Создаем уведомление
+        const notification = document.createElement('div');
+        notification.textContent = 'Copied!';
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            z-index: 9999;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Показываем уведомление
+        setTimeout(() => {
+            notification.style.opacity = '1';
+        }, 10);
+        
+        // Скрываем и удаляем через 2 секунды
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 2000);
             }).catch(err => {
                 console.error('Failed to copy: ', err);
                 alert("Failed to copy content to clipboard");
