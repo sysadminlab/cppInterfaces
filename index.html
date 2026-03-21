@@ -408,14 +408,9 @@ virtual int method1() = 0;
         function copyDiv(divName) {
             const divElement = document.getElementById(divName);
             const divContent = divElement.textContent;
-            const divColor = divElement.style.backgroundColor;
                     
             navigator.clipboard.writeText(divContent).then(() => {
-                if (divColor === 'rgb(249, 249, 249)') { 
-                    divElement.style.backgroundColor = '#3d3d3d'; 
-                } else {
-                    divElement.style.backgroundColor = '#d3d3d3';
-                }
+                divElement.style.backgroundColor = '#3d3d3d';
             }).catch(err => {
                 console.error('Failed to copy: ', err);
                 alert("Failed to copy content to clipboard");
