@@ -81,6 +81,7 @@
         }
         .button-group {
             margin-top: 10px;
+            display: grid;
         }
         
         /* Dark Theme Styles */
@@ -213,14 +214,14 @@ virtual int method1() = 0;</textarea>
         <div id="output">Interface code will appear here</div>
         
         <div class="button-group">
+            <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
+            <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
             <label for="implName">Implementation Name:</label>
             <input type="text" id="implName" required>
             <button type="button" onclick="generateImplementation()">Generate Implementation Class</button>
         </div>
         <div class="button-group">
             <button type="button" onclick="copyDiv('impl')">Copy Implementation header</button>
-            <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
-            <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
         </div>
         <div id="impl" class="implementation">Implementation header will appear here</div>
         <div class="button-group">
