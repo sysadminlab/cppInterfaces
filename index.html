@@ -412,13 +412,12 @@ virtual int method1() = 0;
                     
             navigator.clipboard.writeText(divContent).then(() => {
                 if (divColor === 'rgb(249, 249, 249)') {
-                    const originalColor = divElement.style.backgroundColor;
                     // Меняем на темно-серый
-                    divElement.style.backgroundColor = '#3d3d3d';
+                    divColor = '#3d3d3d';
                     // Через 500ms возвращаем обратно
                     setTimeout(() => {
-                         divElement.style.backgroundColor = originalColor;
-                    }, 500);
+                         divColor = 'rgb(249, 249, 249)';
+                    }, 1000);
                 }
             }).catch(err => {
                 console.error('Failed to copy: ', err);
