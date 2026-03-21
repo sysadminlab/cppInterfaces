@@ -182,6 +182,8 @@
             <div class="form-group">
                 <label for="className">Class Name:</label>
                 <input type="text" id="className" required>
+                <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
+                <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
             </div>
             <div class="form-group">
                 <label for="includes">Include Headers (one per line):</label>
@@ -214,8 +216,6 @@ virtual int method1() = 0;</textarea>
         <div id="output">Interface code will appear here</div>
         
         <div class="button-group">
-            <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
-            <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
             <label for="implName">Implementation Name:</label>
             <input type="text" id="implName" required>
             <button type="button" onclick="generateImplementation()">Generate Implementation Class</button>
@@ -318,16 +318,20 @@ virtual int method1() = 0;</textarea>
             // generateImplementation(className, priv_methods, pub_methods);
         }
         
-        function generateImplementation(className, priv_methods, pub_methods) {
+        function generateImplementation() {
             let implementation = '';
            
             // Generate header section
+            const className = document.getElementById('className').value;
             const implName = document.getElementById('implName').value;
 
-            if (!implName) {
-                alert("Please enter a implementation name.");
+            if ((!implName) or (!)) {
+                alert("Please enter class and implementation name.");
                 return;
             }
+
+            const priv_methods = document.getElementById('priv_methods').value.split('\n').filter(m => m.trim() !== '');
+            const pub_methods = document.getElementById('pub_methods').value.split('\n').filter(m => m.trim() !== '');
             
             const implNameUpper = implName.toUpperCase();
             implementation += `#ifndef ${implNameUpper}\n`;
