@@ -425,7 +425,7 @@ virtual int method1() = 0;
             const divContent = document.getElementById(divName).textContent;
                     
             navigator.clipboard.writeText(divContent).then(() => {
-                alert(divName + " copied to clipboard!");
+                 document.getElementById(divName).textContent = divContent + ' ✔';
             }).catch(err => {
                 console.error('Failed to copy: ', err);
                 alert("Failed to copy content to clipboard");
