@@ -317,14 +317,21 @@ virtual int method1() = 0;</textarea>
             let implementation = '';
            
             // Generate header section
-            const classNameUpper = className.toUpperCase();
-            implementation += `#ifndef ${classNameUpper}IMPL\n`;
-            implementation += `#define ${classNameUpper}IMPL\n\n`;
+            const implName = document.getElementById('implName').value;
+
+            if (!implName) {
+                alert("Please enter a implementation name.");
+                return;
+            }
+            
+            const implNameUpper = implName.toUpperCase();
+            implementation += `#ifndef ${implNameUpper}\n`;
+            implementation += `#define ${implNameUpper}\n\n`;
 
 
             implementation += `#include "${className}.hpp"\n\n`;
 
-            implementation += `class ${className}Impl: public ${className} {\n`;
+            implementation += `class ${implName}: public ${className} {\n`;
             implementation += 'public:\n';
             implementation += `    using ${className}::${className}; // Constructors\n`;
             pub_methods.forEach(method => {
@@ -344,10 +351,10 @@ virtual int method1() = 0;</textarea>
                 }
             });
             
-            implementation += `};\n\n#endif //${classNameUpper}\n\n`;
+            implementation += `};\n\n#endif //${implNameUpper}\n\n`;
 
             let implementationcpp = '';
-            implementationcpp += `#include "${className}Impl.hpp"\n`;
+            implementationcpp += `#include "${implName}.hpp"\n`;
             // Add implementation for each method
             const allMethods = [...priv_methods, ...pub_methods];
             allMethods.forEach(method => {
@@ -364,7 +371,7 @@ virtual int method1() = 0;</textarea>
                     const methodName = match[2];
                     const parameters = match[3] ? match[3].trim() : '';
                     
-                    implementationcpp += `\n${returnType} ${className}Impl::${methodName}(${parameters}) {\n`;
+                    implementationcpp += `\n${returnType} ${implName}::${methodName}(${parameters}) {\n`;
                     implementationcpp += `    // TODO: Implement ${methodName}\n`;
                     if (returnType !== 'void') {
                         implementationcpp += `    return {};\n`;
