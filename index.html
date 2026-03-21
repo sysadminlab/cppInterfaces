@@ -181,8 +181,6 @@
             <div class="form-group">
                 <label for="className">Class Name:</label>
                 <input type="text" id="className" required>
-                <label for="className">Implementation Name:</label>
-                <input type="text" id="implName" required>
             </div>
             <div class="form-group">
                 <label for="includes">Include Headers (one per line):</label>
@@ -202,6 +200,8 @@
                 <label for="methods">Public Methods (one per line):</label>
                 <textarea id="pub_methods" rows="5" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;">
 virtual int method1() = 0;</textarea>
+                <label for="className">Implementation Name:</label>
+                <input type="text" id="implName" required>
             </div>
             <div class="button-group">
                 <button type="button" onclick="generateClass()">Generate C++ Class</button>
