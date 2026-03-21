@@ -408,7 +408,7 @@ virtual int method1() = 0;
         function copyDiv(divName) {
             const divElement = document.getElementById(divName);
             const divContent = divElement.textContent;
-            const divColor = divElement.style.backgroundColor;
+            const divColor = document.getElementById(divName).style.backgroundColor;//divElement.style.backgroundColor;
                     
             navigator.clipboard.writeText(divContent).then(() => {
                 if (divColor === 'rgb(249, 249, 249)') {
