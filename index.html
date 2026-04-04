@@ -282,7 +282,7 @@ virtual int method1() = 0;</textarea>
             });
             
             output += '\n';
-            output += `namespace ${Namespace}\n {`;
+            output += `namespace ${Namespace}{`;
             output += '\n';
             
             // Class declaration
@@ -324,7 +324,7 @@ virtual int method1() = 0;</textarea>
             });
             
             output += '};\n';
-            output += '}\n'; // End of Namespace
+            output += '} // namespace ${Namespace}\n'; // End of Namespace
             output += `#endif //${classNameUpper}\n`;
             
             document.getElementById('output').textContent = output;
@@ -352,7 +352,7 @@ virtual int method1() = 0;</textarea>
             implementation += `#ifndef ${implNameUpper}\n`;
             implementation += `#define ${implNameUpper}\n\n`;
             
-            output += `namespace ${implNamespace}\n {`;
+            output += `namespace ${implNamespace}{`;
             output += '\n';
 
             implementation += `#include "${className}.hpp"\n\n`;
@@ -380,6 +380,7 @@ virtual int method1() = 0;</textarea>
 
             let implementationcpp = '';
             implementationcpp += `#include "${implName}.hpp"\n`;
+            implementationcpp += `namespace ${implNamespace}{\n`;
             // Add implementation for each method
             const allMethods = [...priv_methods, ...pub_methods];
             allMethods.forEach(method => {
@@ -396,13 +397,14 @@ virtual int method1() = 0;</textarea>
                     const methodName = match[2];
                     const parameters = match[3] ? match[3].trim() : '';
                     
-                    implementationcpp += `\n${returnType} ${implName}::${methodName}(${parameters}) {\n`;
+                    implementationcpp += `\n${returnType} ${implName}::${methodName}::${Namespace}(${parameters}){\n`;
                     implementationcpp += `    // TODO: Implement ${methodName}\n`;
                     if (returnType !== 'void') {
                         implementationcpp += `    return {};\n`;
                     }
                     implementationcpp += '}\n';
                 }
+                output += '} // namespace ${Namespace}\n'; // End of Namespace
             });
             
             document.getElementById('impl').textContent = implementation;
