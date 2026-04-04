@@ -3,7 +3,7 @@ LIB_NAME     := myname
 TARGET       := appname.exe
 
 CXX          := g++
-CXXFLAGS     := -std=c++17 -Wall -Wextra -Werror -fPIC -Iinclude -MMD -MP
+CXXFLAGS     := -std=c++17 -Wall -Werror -fPIC -Iinclude
 LDFLAGS      := -L. -Wl,-rpath,. 
 
 # 2. Directories
