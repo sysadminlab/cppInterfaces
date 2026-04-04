@@ -225,7 +225,7 @@ virtual int method1() = 0;</textarea>
         <div class="button-group">
             <label for="implName">Implementation Name:</label>
             <input type="text" id="implName" required>
-            <label for="implName">Implementation Namespace:</label>
+            <label for="implNamespace">Implementation Namespace:</label>
             <input type="text" id="implNamespace" required>
             <button type="button" onclick="generateImplementation()">Generate Implementation Class</button>
         </div>
@@ -339,6 +339,7 @@ virtual int method1() = 0;</textarea>
             // Generate header section
             const className = document.getElementById('className').value;
             const implName = document.getElementById('implName').value;
+            const implNamespace = document.getElementById('implNamespace').value;
 
             if ((!implName) || (!className)) {
                 alert("Please enter class and implementation name.");
