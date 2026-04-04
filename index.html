@@ -399,7 +399,7 @@ virtual int method1() = 0;</textarea>
                     const methodName = match[2];
                     const parameters = match[3] ? match[3].trim() : '';
                     
-                    implementationcpp += `\n${returnType} ${implName}::${methodName}::${Namespace}(${parameters}){\n`;
+                    implementationcpp += `\n${returnType} ${implName}::${methodName}(${parameters}){\n`;
                     implementationcpp += `    // TODO: Implement ${methodName}\n`;
                     if (returnType !== 'void') {
                         implementationcpp += `    return {};\n`;
@@ -407,7 +407,7 @@ virtual int method1() = 0;</textarea>
                     implementationcpp += '}\n';
                 }
             });
-            implementationcpp += '} // namespace ${implNamespace}\n'; // End of Namespace
+            implementationcpp += `} // namespace ${implNamespace}\n`; // End of Namespace
             
             document.getElementById('impl').textContent = implementation;
             document.getElementById('implcpp').textContent = implementationcpp;
