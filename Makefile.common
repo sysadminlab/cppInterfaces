@@ -51,6 +51,13 @@ help:
 dir:
 	mkdir -p $(LIB_SRC_DIR) $(INC_DIR) $(LIB_OBJ_DIR) $(BUILD_DIR)
 	touch $(SRC_DIR)/main.cpp
+	touch $(INC_DIR)/testClass1_iface.hpp
+
+	touch $(INC_DIR)/testClass1_impl1.hpp
+	touch $(LIB_SRC_DIR)/testClass1_impl1.cpp
+
+	touch $(INC_DIR)/testClass1_impl2.hpp
+	touch $(LIB_SRC_DIR)/testClass1_impl2.cpp
 	@echo "--- Directories created ---"
 
 # Link the final executable
