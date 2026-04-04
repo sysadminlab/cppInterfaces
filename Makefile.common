@@ -50,6 +50,8 @@ help:
 # Create project structure
 dir:
 	mkdir -p $(LIB_SRC_DIR) $(INC_DIR) $(LIB_OBJ_DIR) $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)/$(LIB_OBJ_DIR)
+
 	touch $(SRC_DIR)/main.cpp
 	touch $(INC_DIR)/testClass1_iface.hpp
 
