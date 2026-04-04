@@ -43,7 +43,7 @@ help:
 	@echo "  $(SRC_DIR)/main.cpp      - Main application source"
 	@echo "  $(LIB_SRC_DIR)/*.cpp     - Shared library sources"
 	@echo "  $(INC_DIR)/*.hpp         - Header files"
-    @echo "  $(BUILD_DIR)/*           - Build directory with result files"
+	@echo "  $(INC_DIR)/*.hpp         - Directory with result"
 	@echo "  $(SHARED_LIB)            - Generated dynamic library"
 	@echo "  $(TARGET)                - Generated executable"
 
