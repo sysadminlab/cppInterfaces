@@ -352,8 +352,7 @@ virtual int method1() = 0;</textarea>
             implementation += `#ifndef ${implNameUpper}\n`;
             implementation += `#define ${implNameUpper}\n\n`;
             
-            output += `namespace ${implNamespace}{`;
-            output += '\n';
+            output += `namespace ${implNamespace}{\n\n`;
 
             implementation += `#include "${className}.hpp"\n\n`;
 
