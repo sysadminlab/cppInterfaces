@@ -355,7 +355,7 @@ virtual int method1() = 0;</textarea>
             implementation += `#ifndef ${implNameUpper}\n`;
             implementation += `#define ${implNameUpper}\n\n`;
             
-            output += `namespace ${implNamespace}{\n\n`;
+            implementation += `namespace ${implNamespace}{\n\n`;
 
             implementation += `#include "${className}.hpp"\n\n`;
 
@@ -377,7 +377,7 @@ virtual int method1() = 0;</textarea>
                     implementation += `    ${returnType} ${methodName}() override;\n`;
                 }
             });
-            output += '}\n'; // End of Namespace
+            implementationcpp += '} // namespace ${implNamespace}\n'; // End of Namespace
             implementation += `};\n\n#endif //${implNameUpper}\n\n`;
 
             let implementationcpp = '';
@@ -406,8 +406,8 @@ virtual int method1() = 0;</textarea>
                     }
                     implementationcpp += '}\n';
                 }
-                output += '} // namespace ${Namespace}\n'; // End of Namespace
             });
+            implementationcpp += '} // namespace ${implNamespace}\n'; // End of Namespace
             
             document.getElementById('impl').textContent = implementation;
             document.getElementById('implcpp').textContent = implementationcpp;
