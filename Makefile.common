@@ -26,7 +26,7 @@ SHARED_LIB   := lib$(LIB_NAME).so
 .PHONY: all clean re dir help
 
 # Default goal: show help or build all
-all: dir $(TARGET)
+all: $(TARGET)
 
 # Help target: explains available commands and structure
 help:
