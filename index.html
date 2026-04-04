@@ -225,6 +225,7 @@ virtual int method1() = 0;</textarea>
         <div class="button-group">
             <label for="implName">Implementation Name:</label>
             <input type="text" id="implName" required>
+            <label for="implName">Implementation Namespace:</label>
             <input type="text" id="implNamespace" required>
             <button type="button" onclick="generateImplementation()">Generate Implementation Class</button>
         </div>
@@ -453,29 +454,6 @@ virtual int method1() = 0;</textarea>
                 alert("Failed to copy content to clipboard");
             });
         }
-/*        
-        function copyDiv(divName) {
-        const divElement = document.getElementById(divName);
-        const divContent = divElement.textContent;
-        const divColor = divElement.style.backgroundColor;
-            
-        navigator.clipboard.writeText(divContent).then(() => {
-            if (divColor === 'rgb(249, 249, 249)') {
-                const originalColor = divElement.style.backgroundColor;
-            
-                // Меняем цвет элемента
-                divElement.style.backgroundColor = '#3d3d3d';
-            
-                // Через 1 секунду возвращаем обратно
-                setTimeout(() => {
-                    divElement.style.backgroundColor = originalColor;
-                }, 1000);
-            }
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert("Failed to copy content to clipboard");
-            });
-        } */
 
         function copyTemplate(fileName) {
             // Reading Makefile.common from the server using fetch
