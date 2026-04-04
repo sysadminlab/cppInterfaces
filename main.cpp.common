@@ -4,7 +4,9 @@
 
 // Put headers into ./include/ directory
 // Put library *.cpp into ./src/lib/
-#include ""
+// #include "testClass1_iface.hpp"
+#include "testClass1_impl1.hpp"
+#include "testClass1_impl2.hpp"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
