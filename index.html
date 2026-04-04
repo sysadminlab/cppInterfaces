@@ -377,8 +377,9 @@ virtual int method1() = 0;</textarea>
                     implementation += `    ${returnType} ${methodName}() override;\n`;
                 }
             });
-            implementation += '} // namespace ${implNamespace}\n'; // End of Namespace
-            implementation += `};\n\n#endif //${implNameUpper}\n\n`;
+            implementation += `};\n`;
+            implementation += `} // namespace ${implNamespace}\n`; // End of Namespace
+            implementation += `#endif //${implNameUpper}\n`;
 
             let implementationcpp = '';
             implementationcpp += `#include "${implName}.hpp"\n`;
