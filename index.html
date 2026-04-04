@@ -175,6 +175,7 @@
         }
     </style>
 </head>
+//-----------------------------------------------------------------------------------------
 <body>
     <div class="container">
         <h1>C++ Interface Generator</h1>
@@ -221,7 +222,7 @@ virtual int method1() = 0;</textarea>
         </form>
         
         <div id="output">Interface code will appear here</div>
-        <br><br>
+        <br>* * *<br>
         <div class="button-group">
             <label for="implName">Implementation Name:</label>
             <input type="text" id="implName" required>
@@ -240,7 +241,7 @@ virtual int method1() = 0;</textarea>
     </div>
 
     <button class="theme-switcher" onclick="toggleTheme()" id="themeSwitcher">☀️</button>
-
+//-----------------------------------------------------------------------------------------
     <script>
         // Check for saved theme preference or respect OS preference
         const savedTheme = localStorage.getItem('theme');
