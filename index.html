@@ -324,8 +324,8 @@ virtual int method1() = 0;</textarea>
                 output += `    ${method}\n`;
             });
             
-            output += '};\n';
-            output += '} // namespace ${Namespace}\n'; // End of Namespace
+            output += `};\n`;
+            output += `} // namespace ${Namespace}\n`; // End of Namespace
             output += `#endif //${classNameUpper}\n`;
             
             document.getElementById('output').textContent = output;
