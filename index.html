@@ -354,10 +354,10 @@ virtual int method1() = 0;</textarea>
             const implNameUpper = implName.toUpperCase();
             implementation += `#ifndef ${implNameUpper}\n`;
             implementation += `#define ${implNameUpper}\n\n`;
-            
-            implementation += `namespace ${implNamespace}{\n\n`;
 
             implementation += `#include "${className}.hpp"\n\n`;
+            
+            implementation += `namespace ${implNamespace}{\n\n`;
 
             implementation += `class ${implName}: public ${Namespace}::${className} {\n`;
             implementation += 'public:\n';
