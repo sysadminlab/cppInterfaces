@@ -360,7 +360,7 @@ virtual int method1() = 0;</textarea>
             implementation += `namespace ${implNamespace}{\n\n`;
             if(implNamespace === Namespace){ 
                 implementation += `class ${implName}: public ${Namespace}::${className} {\n`;
-            {
+            }
             else {
                 implementation += `class ${implName}: public ${className} {\n`;
             }
