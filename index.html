@@ -358,8 +358,12 @@ virtual int method1() = 0;</textarea>
             implementation += `#include "${className}.hpp"\n\n`;
             
             implementation += `namespace ${implNamespace}{\n\n`;
-
-            implementation += `class ${implName}: public ${Namespace}::${className} {\n`;
+            if(implNamespace === Namespace){ 
+                implementation += `class ${implName}: public ${Namespace}::${className} {\n`;
+            {
+            else {
+                implementation += `class ${implName}: public ${className} {\n`;
+            }
             implementation += 'public:\n';
             pub_methods.forEach(method => {
                 // Remove any trailing semicolon
