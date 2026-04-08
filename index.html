@@ -359,10 +359,10 @@ virtual int method1() = 0;</textarea>
             
             implementation += `namespace ${implNamespace}{\n\n`;
             if(implNamespace === Namespace){ 
-                implementation += `class ${implName}: public ${Namespace}::${className} {\n`;
+                implementation += `class ${implName}: public ${className} {\n`;
             }
             else {
-                implementation += `class ${implName}: public ${className} {\n`;
+                implementation += `class ${implName}: public ${Namespace}::${className} {\n`;
             }
             implementation += 'public:\n';
             pub_methods.forEach(method => {
