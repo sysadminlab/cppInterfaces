@@ -411,8 +411,8 @@ virtual int noExceptmethod1() noexcept = 0; // NOEXCEPT</textarea>
                     const returnType = match[1];
                     const methodName = match[2];
                     const parameters = match[3] ? match[3].trim() : '';
-                    const constSpec = match[4]; if (constSpec === undefined) {constSpec = "";}
-                    const noexceptSpec = match[5]; if (noexceptSpec === undefined){noexceptSpec = "";}
+                    const constSpec = match[4] ? match[4].trim() : '';
+                    const noexceptSpec = match[5] ? match[5].trim() : '';
                     implementationcpp += ``;
                     if (noexceptSpec === "") {
                         implementationcpp += `/**`;
