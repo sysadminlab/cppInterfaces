@@ -191,7 +191,8 @@
             </div>
             <div class="form-group">
                 <label for="includes">Include Headers (one per line):</label>
-                <textarea id="includes" rows="3" placeholder="#include <iostream> &#10;#include <string>">
+                <textarea id="includes" rows="3" placeholder="#include <iostream> &#10;#include <string> &#10;#include <stdexcept>">
+#include <stdexcept>
 #include <iostream>
 #include <string></textarea>
             </div>
@@ -210,7 +211,8 @@ enum class State{
             <div class="form-group">
                 <label for="methods">Public Methods (one per line):</label>
                 <textarea id="pub_methods" rows="5" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;">
-virtual int method1() = 0;</textarea>
+virtual int method1() = 0; // throws std::runtime_error if reading fails
+virtual int noExceptmethod1() noexcept = 0; // NOEXCEPTg</textarea>
             </div>
             <div class="button-group">
                 <button type="button" onclick="generateClass()">Generate C++ Class</button>
@@ -398,13 +400,28 @@ virtual int method1() = 0;</textarea>
                 }
                 
                 // Extract method signature
-                const match = method.match(/virtual\s+(\w+(?:\s*\w+)*)\s+(\w+)\s*\(([^)]*)\)/);
+                const match = method.match(/virtual\s+(\w+(?:\s*\w+)*)\s+(\w+)\s*\(([^)]*)\)\s*(const)?\s*(noexcept)?\s*(=\s*0)?\s*;/);
                 if (match) {
                     const returnType = match[1];
                     const methodName = match[2];
                     const parameters = match[3] ? match[3].trim() : '';
-                    
-                    implementationcpp += `\n${returnType} ${implName}::${methodName}(${parameters}){\n`;
+                    const constSpec = match[4];
+                    const noexceptSpec = match[5];
+                    implementationcpp += ``;
+                    if (noexceptSpec === undefined || noexceptSpec === null || noexceptSpec === "") {
+                        implementationcpp += `/**`;
+                        implementationcpp += `* @throws std::runtime_error on internal error`;
+                        implementationcpp += `* @throws std::runtime_error on external error`;
+                        implementationcpp += `*/`;
+                    }
+                    implementationcpp += `\n${returnType} ${implName}::${methodName}(${parameters}) ${constSpec} ${noexceptSpec}{\n`;
+                    implementationcpp += `    try{\n`;
+                    implementationcpp += `        // TODO: Implement try block\n`;
+                    implementationcpp += `    }\n`;
+                    implementationcpp += `    catch(const std::runtime_error& err){ \n`;
+                    implementationcpp += `         std::cout << "Caught: " << err.what() << std::endl;\n`
+                    implementationcpp += `         throw err;\n` 
+                    implementationcpp += `    }\n`;
                     implementationcpp += `    // TODO: Implement ${methodName}\n`;
                     if (returnType !== 'void') {
                         implementationcpp += `    return {};\n`;
