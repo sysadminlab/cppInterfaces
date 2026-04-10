@@ -413,20 +413,22 @@ virtual int noExceptmethod1() noexcept = 0; // NOEXCEPT</textarea>
                     const parameters = match[3] ? match[3].trim() : '';
                     const constSpec = match[4] ? match[4].trim() : '';
                     const noexceptSpec = match[5] ? match[5].trim() : '';
-                    implementationcpp += ``;
-                    if (noexceptSpec === "") {
-                        implementationcpp += `/**`;
-                        implementationcpp += `* @throws std::runtime_error on internal error`;
-                        implementationcpp += `* @throws std::runtime_error on external error`;
-                        implementationcpp += `*/`;
+                    implementationcpp += `\n`;
+                    if (noexceptSpec === '') {
+                        implementationcpp += `/**\n`;
+                        implementationcpp += `* @throws std::runtime_error on internal error\n`;
+                        implementationcpp += `* @throws std::runtime_error on external error\n`;
+                        implementationcpp += `*\n`;
                     }
                     implementationcpp += `\n${returnType} ${implName}::${methodName}(${parameters}) ${constSpec} ${noexceptSpec}{\n`;
                     implementationcpp += `    try{\n`;
                     implementationcpp += `        // TODO: Implement try block\n`;
                     implementationcpp += `    }\n`;
                     implementationcpp += `    catch(const std::runtime_error& err){ \n`;
-                    implementationcpp += `         std::cout << "Caught: " << err.what() << std::endl;\n`
-                    implementationcpp += `         throw err;\n` 
+                    implementationcpp += `         std::cout << "Caught: " << err.what() << std::endl;\n`;
+                    if (noexceptSpec === '') { 
+                        implementationcpp += `         throw err;\n` ;
+                    }
                     implementationcpp += `    }\n`;
                     implementationcpp += `    // TODO: Implement ${methodName}\n`;
                     if (returnType !== 'void') {
