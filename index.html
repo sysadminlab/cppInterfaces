@@ -211,8 +211,8 @@ enum class State{
             <div class="form-group">
                 <label for="methods">Public Methods ( virtual type name(argument) const noexcept = 0; ):</label>
                 <textarea id="pub_methods" placeholder="virtual return_type method_name(argument) = 0; &#10;virtual return_type method_name2(argument) = 0;">
-virtual int method1() = 0; // throws std::runtime_error
-virtual int noExceptmethod1() noexcept = 0; // NOEXCEPT</textarea>
+virtual int method1(int a, float b) = 0; // throws std::runtime_error
+virtual int noExceptmethod1(float a, int b) noexcept = 0; // NOEXCEPT</textarea>
             </div>
             <div class="button-group">
                 <button type="button" onclick="generateClass()">Generate C++ Class</button>
@@ -381,12 +381,15 @@ virtual int noExceptmethod1() noexcept = 0; // NOEXCEPT</textarea>
                 }
                 
                 // Extract method signature
-                // Pattern to match: virtual return_type method_name(parameters) = 0;
-                const match = method.match(/virtual\s+(\w+(?:\s*\w+)*)\s+(\w+)\s*\(([^)]*)\)/);
+                // Pattern to match: virtual return_type method_name(parameters) [const] [noexcept] = 0;
+                const match = method.match(/virtual\s+(\w+(?:\s*\w+)*)\s+(\w+)\s*\(([^)]*)\)\s*(const)?\s*(noexcept)?\s*(=\s*0)?\s*;/);
                 if (match) {
                     const returnType = match[1];
                     const methodName = match[2];
-                    implementation += `    ${returnType} ${methodName}() override;\n`;
+                    const parameters = match[3] ? match[3].trim() : '';
+                    const constSpec = match[4] ? match[4].trim() : '';
+                    const noexceptSpec = match[5] ? match[5].trim() : '';
+                    implementation += `    ${returnType} ${methodName}(${parameters})${constSpec} ${noexceptSpec} override;\n`;
                 }
             });
             implementation += `};\n`;
