@@ -190,27 +190,27 @@
                 <button type="button" onclick="generateClass()">Generate C++ Class</button>
             </div>
             <div class="form-group">
-                <label for="includes">Include Headers (one per line):</label>
-                <textarea id="includes" rows="3" placeholder="#include <iostream> &#10;#include <string> &#10;#include <stdexcept>">
+                <label for="includes">Include Headers:</label>
+                <textarea id="includes" placeholder="#include <iostream> &#10;#include <string> &#10;#include <stdexcept>">
 #include <stdexcept>
 #include <iostream>
 #include <string></textarea>
             </div>
             <div class="form-group">
-                <label for="variables">Protected Variables (one per line):</label>
-                <textarea id="variables" rows="3" placeholder="type variable_name; &#10;type variable_name2;">
+                <label for="variables">Protected Variables:</label>
+                <textarea id="variables" placeholder="type variable_name; &#10;type variable_name2;">
 enum class State{
   open,
   close
 } currentState;</textarea>
             </div>
             <div class="form-group">
-                <label for="methods">Private Methods (one per line):</label>
-                <textarea id="priv_methods" rows="5" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;"></textarea>
+                <label for="methods">Private Methods ( type name(parameters) const noexcept; ):</label>
+                <textarea id="priv_methods" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;"></textarea>
             </div>
             <div class="form-group">
-                <label for="methods">Public Methods (one per line):</label>
-                <textarea id="pub_methods" rows="5" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;">
+                <label for="methods">Public Methods ( virtual type name(parameters) const noexcept = 0; ):</label>
+                <textarea id="pub_methods" placeholder="virtual return_type method_name(parameters) = 0; &#10;virtual return_type method_name2(parameters) = 0;">
 virtual int method1() = 0; // throws std::runtime_error if reading fails
 virtual int noExceptmethod1() noexcept = 0; // NOEXCEPT</textarea>
             </div>
@@ -240,6 +240,12 @@ virtual int noExceptmethod1() noexcept = 0; // NOEXCEPT</textarea>
             <button type="button" onclick="copyDiv('implcpp')">Copy Implementation code</button>
         </div>
         <div id="implcpp" class="implementation">Implementation code will appear here</div>
+        <div class="button-group">
+            <label for="mmdiagram">Mermaid Diagram:</label>
+            <textarea id="mmdiagram" rows="5" placeholder="Type Meramid diagram here">
+</textarea>
+            <button type="button" onclick="generateImplementation()">Clear Mermaid diagram</button>
+        </div>
     </div>
 
     <button class="theme-switcher" onclick="toggleTheme()" id="themeSwitcher">☀️</button>
