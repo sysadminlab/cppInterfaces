@@ -405,10 +405,10 @@ virtual int noExceptmethod1() noexcept = 0; // NOEXCEPT</textarea>
                     const returnType = match[1];
                     const methodName = match[2];
                     const parameters = match[3] ? match[3].trim() : '';
-                    const constSpec = match[4];
-                    const noexceptSpec = match[5];
+                    const constSpec = match[4]; if (constSpec === undefined) {constSpec = "";}
+                    const noexceptSpec = match[5]; if (noexceptSpec === undefined){noexceptSpec = "";}
                     implementationcpp += ``;
-                    if (noexceptSpec === undefined || noexceptSpec === null || noexceptSpec === "") {
+                    if (noexceptSpec === "") {
                         implementationcpp += `/**`;
                         implementationcpp += `* @throws std::runtime_error on internal error`;
                         implementationcpp += `* @throws std::runtime_error on external error`;
