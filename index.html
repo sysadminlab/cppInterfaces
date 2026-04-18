@@ -185,7 +185,8 @@
                 <input type="text" id="Namespace" required>
                 <label for="className">Class Name:</label>
                 <input type="text" id="className" required>
-                <button type="button" onclick="copyTemplate('Makefile.common')">Copy Makefile</button>
+                
+                <button type="button" onclick="copyText('touch AUTHORS README ChangeLog NEWS && mkdir -p build doc lib test include m4 src')">Copy mkdir -p</button>
                 <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
                 <button type="button" onclick="generateClass()">Generate C++ Class</button>
             </div>
@@ -476,6 +477,16 @@ https://mermaid.ai/open-source/syntax/classDiagram.html</textarea>
             }, 100);
         }
 
+        function copyText(textToCopy){
+            navigator.clipboard.writeText(textToCopy).then(() => {
+               // Создаем уведомление
+                notifyCopied();
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert("Failed to copy content to clipboard");
+            });
+        }
+        
         function copyDiv(divName) {
             const divElement = document.getElementById(divName);
             const divContent = divElement.textContent;
