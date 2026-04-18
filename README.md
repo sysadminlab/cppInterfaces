@@ -4,6 +4,7 @@ C++ interface generator for rapid developement
 Open **index.html** localy, or<br>
 Visit website https://sysadminlab.github.io/cppInterfaces/
 
+https://www.gnu.org/prep/standards/html_node/index.html
 https://www.gnu.org/software/automake/manual/html_node/Public-Macros.html
 https://www.gnu.org/software/automake/manual/html_node/Options.html
 https://www.gnu.org/software/automake/manual/html_node/List-of-Automake-options.html
