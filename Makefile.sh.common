@@ -1,0 +1,80 @@
+#!/bin/sh
+
+cat > configure.ac << EOF
+AC_INIT([$LIB_NAME], [1.0.0], [your.email@example.com])
+AM_INIT_AUTOMAKE([1.15 foreign])
+AC_CONFIG_HEADERS([config.h])
+
+# Инициализация Libtool
+LT_INIT([shared static])
+
+# Проверка компилятора
+AC_PROG_CC
+AC_PROG_INSTALL
+
+# Проверка на наличие pthread (часто нужно для библиотек)
+AC_CHECK_LIB([pthread], [pthread_create], [], [])
+AC_CHECK_FUNCS([strdup strerror])
+
+# Выходные файлы
+AC_CONFIG_FILES([
+    Makefile
+    lib/Makefile
+    src/Makefile
+    doc/Makefile
+    $LIB_NAME.pc
+])
+AC_OUTPUT
+EOF
+#===========================
+cat > lib/Makefile.am << EOF
+# Основная библиотека
+lib_LTLIBRARIES = lib$LIB_NAME_LC.la
+
+# Версионирование Libtool (CURRENT:REVISION:AGE)
+# Начальная версия: 0:0:0
+lib${LIB_NAME_LC}_la_LDFLAGS = -version-info 0:0:0
+
+# Исходники библиотеки
+lib${LIB_NAME_LC}_la_SOURCES = \
+    ${LIB_NAME_LC}_internal.c \
+    ${LIB_NAME_LC}_internal.h \
+    ${LIB_NAME_LC}_impl.c
+
+# Публичные заголовки (будут установлены в систему)
+include_HEADERS = ../include/$LIB_NAME_LC/$LIB_NAME_LC.h
+
+# Дополнительные флаги компиляции
+AM_CPPFLAGS = -I\$(top_srcdir)/include -I\$(top_srcdir)/lib
+AM_CFLAGS = -Wall -Wextra
+EOF
+#==========================
+cat > src/Makefile.am << EOF
+bin_PROGRAMS = main
+
+${LIB_NAME_LC}_example_SOURCES = main.c
+${LIB_NAME_LC}_example_LDADD = ../lib/lib${LIB_NAME_LC}.la
+
+AM_CPPFLAGS = -I\$(top_srcdir)/include
+AM_CFLAGS = -Wall -Wextra
+EOF
+#==========================
+# Создаем pkg-config файл
+cat > $LIB_NAME.pc.in << EOF
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: $LIB_NAME
+Description: Shared library with Libtool
+Version: @VERSION@
+Libs: -L\${libdir} -l$LIB_NAME_LC
+Cflags: -I\${includedir}
+EOF
+#==========================
+cat > doc/Makefile.am << EOF
+# Man страница (опционально)
+# man_MANS = $LIB_NAME_LC.3
+# EXTRA_DIST = \$(man_MANS)
+EOF
