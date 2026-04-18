@@ -422,7 +422,7 @@ https://mermaid.ai/open-source/syntax/classDiagram.html</textarea>
                         implementationcpp += `/**\n`;
                         implementationcpp += `* @throws std::runtime_error on internal error\n`;
                         implementationcpp += `* @throws std::runtime_error on external error\n`;
-                        implementationcpp += `*\n`;
+                        implementationcpp += `*/\n`;
                     }
                     implementationcpp += `\n${returnType} ${implName}::${methodName}(${parameters}) ${constSpec} ${noexceptSpec}{\n`;
                     implementationcpp += `    try{\n`;
