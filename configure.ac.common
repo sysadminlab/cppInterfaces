@@ -1,1 +1,25 @@
+AC_INIT([$LIB_NAME], [1.0.0], [your.email@example.com])
+AM_INIT_AUTOMAKE([1.15 foreign])
+AC_CONFIG_HEADERS([config.h])
 
+# Инициализация Libtool
+LT_INIT([shared static])
+
+# Проверка компилятора
+AC_PROG_CC
+AC_PROG_INSTALL
+
+# Проверка на наличие pthread (часто нужно для библиотек)
+AC_CHECK_LIB([pthread], [pthread_create], [], [])
+AC_CHECK_FUNCS([strdup strerror])
+
+# Выходные файлы
+AC_CONFIG_FILES([
+    Makefile
+    lib/Makefile
+    src/Makefile
+    test/Makefile
+    doc/Makefile
+    $LIB_NAME.pc
+])
+AC_OUTPUT
