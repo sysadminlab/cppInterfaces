@@ -29,6 +29,17 @@ AC_CONFIG_FILES([
 AC_OUTPUT
 EOF
 #===========================
+cat > Makefile.am << EOF
+SUBDIRS = lib src test doc
+
+EXTRA_DIST = README NEWS ChangeLog AUTHORS $LIB_NAME.pc.in
+
+pkgconfigdir = \$(libdir)/pkgconfig
+pkgconfig_DATA = $LIB_NAME.pc
+
+dist_doc_DATA = README NEWS ChangeLog AUTHORS
+EOF
+#===========================
 cat > lib/Makefile.am << EOF
 # Основная библиотека
 lib_LTLIBRARIES = lib$LIB_NAME.la
