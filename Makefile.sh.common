@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LIB_NAME=mylib
+LIB_NAME=$(basename "$PWD")
 
 cat > configure.ac << EOF
 AC_INIT([$LIB_NAME], [1.0.0], [your.email@example.com])
