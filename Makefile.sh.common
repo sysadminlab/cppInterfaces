@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LIB_NAME=$(basename "$PWD")
+LIB_NAME=$(basename ${PWD})
 
 cat > configure.ac << EOF
 AC_INIT([$LIB_NAME], [1.0.0], [your.email@example.com])
@@ -42,33 +42,30 @@ EOF
 #===========================
 cat > lib/Makefile.am << EOF
 # Основная библиотека
-lib_LTLIBRARIES = lib$LIB_NAME.la
+lib_LTLIBRARIES = libtestlib.la
 
 # Версионирование Libtool (CURRENT:REVISION:AGE)
-# Начальная версия: 0:0:0
-lib${LIB_NAME}_la_LDFLAGS = -version-info 0:0:0
+# Начальная версия: 1:0:0
+libtestlib_la_LDFLAGS = -version-info 1:0:0
 
 # Исходники библиотеки
-lib${LIB_NAME}_la_SOURCES = \
-    ${LIB_NAME}_internal.c \
-    ${LIB_NAME}_internal.h \
-    ${LIB_NAME}_impl.c
+libtestlib_la_SOURCES = testlib_impl1.cpp testlib_impl2.cpp
 
 # Публичные заголовки (будут установлены в систему)
-include_HEADERS = ../include/$LIB_NAME/$LIB_NAME.h
+include_HEADERS = ../include/testlib/testlib.hpp ../include/testlib/testlib_impl1.hpp ../include/testlib/testlib_impl2.hpp
 
 # Дополнительные флаги компиляции
-AM_CPPFLAGS = -I\$(top_srcdir)/include -I\$(top_srcdir)/lib
+AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/lib
 AM_CFLAGS = -Wall -Wextra
 EOF
 #==========================
 cat > src/Makefile.am << EOF
 bin_PROGRAMS = main
 
-${LIB_NAME}_main_SOURCES = main.c
-${LIB_NAME}_main_LDADD = ../lib/lib${LIB_NAME}.la
+main_SOURCES = main.cpp
+main_LDADD = ../lib/libtestlib.la
 
-AM_CPPFLAGS = -I\$(top_srcdir)/include
+AM_CPPFLAGS = -I$(top_srcdir)/include
 AM_CFLAGS = -Wall -Wextra
 EOF
 #==========================
