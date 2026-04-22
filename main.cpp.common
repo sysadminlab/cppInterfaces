@@ -4,9 +4,13 @@
 
 // Put headers into ./include/ directory
 // Put library *.cpp into ./src/lib/
-// #include "testClass1_iface.hpp"
-#include "testClass1_impl1.hpp"
-#include "testClass1_impl2.hpp"
+#include "testlib/testlib.hpp"
+#include "testlib/testlib_impl1.hpp"
+#include "testlib/testlib_impl2.hpp"
+
+int testInterface(PN::testlib& tl){
+  return tl.method1(1, 10.0) + tl.noExceptmethod1(20.0, 3);
+}
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -16,14 +20,17 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Program name: " << argv[0] << "\n";
     std::cout << "Arguments count: " << argc - 1 << "\n";
-    
+
     /* Output arguments
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
         std::cout << "Arg[" << i << "]: " << arg << "\n";
     } */
+    IN::testlib_impl1 tl1;
+    IN::testlib_impl2 tl2;
 
-    // Your code
+    std::cout << testInterface(tl1) << std::endl;
+    std::cout << testInterface(tl2) << std::endl;
 
     return 0;
 }
