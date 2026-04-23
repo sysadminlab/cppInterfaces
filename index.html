@@ -186,7 +186,7 @@
                 <label for="className">Class Name:</label>
                 <input type="text" id="className" required>
                 
-                <button type="button" onclick="copyText('mkdir -p build doc test include/$(basename ${PWD}) m4 src lib && touch AUTHORS README ChangeLog NEWS')">Copy mkdir -p</button>
+                <button type="button" onclick="copyText('mkdir -p build doc test include/$(basename ${PWD}) m4 src lib && touch AUTHORS README ChangeLog NEWS src/main.cpp')">Copy mkdir -p</button>
                 <button type="button" onclick="copyTemplate('Makefile.sh.common')">Copy Makefile.sh</button>
                 <button type="button" onclick="copyTemplate('main.cpp.common')">Copy main.cpp</button>
                 <button type="button" onclick="generateClass()">Generate C++ Class</button>
