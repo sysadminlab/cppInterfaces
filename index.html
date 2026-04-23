@@ -284,7 +284,7 @@ https://mermaid.ai/open-source/syntax/classDiagram.html</textarea>
                 return;
             }
 
-            let output = '';
+            let output = '// ${className}.hpp\n';
             const classNameUpper = className.toUpperCase();
             output += `#ifndef ${classNameUpper}\n`;
             output += `#define ${classNameUpper}\n\n`;
@@ -344,9 +344,7 @@ https://mermaid.ai/open-source/syntax/classDiagram.html</textarea>
             // generateImplementation(className, priv_methods, pub_methods);
         }
         
-        function generateImplementation() {
-            let implementation = '';
-           
+        function generateImplementation() {           
             // Generate header section
             const className = document.getElementById('className').value;
             const Namespace = document.getElementById('Namespace').value;
@@ -361,6 +359,7 @@ https://mermaid.ai/open-source/syntax/classDiagram.html</textarea>
             const priv_methods = document.getElementById('priv_methods').value.split('\n').filter(m => m.trim() !== '');
             const pub_methods = document.getElementById('pub_methods').value.split('\n').filter(m => m.trim() !== '');
             
+            let implementation = '// ${implName}.hpp\n';
             const implNameUpper = implName.toUpperCase();
             implementation += `#ifndef ${implNameUpper}\n`;
             implementation += `#define ${implNameUpper}\n\n`;
