@@ -55,7 +55,7 @@ libtestlib_la_SOURCES = testlib_impl1.cpp testlib_impl2.cpp
 include_HEADERS = ../include/testlib/testlib.hpp ../include/testlib/testlib_impl1.hpp ../include/testlib/testlib_impl2.hpp
 
 # Дополнительные флаги компиляции
-AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/lib
+AM_CPPFLAGS = -I\$(top_srcdir)/include -I\$(top_srcdir)/lib
 AM_CFLAGS = -Wall -Wextra
 EOF
 #==========================
@@ -65,7 +65,7 @@ bin_PROGRAMS = main
 main_SOURCES = main.cpp
 main_LDADD = ../lib/libtestlib.la
 
-AM_CPPFLAGS = -I$(top_srcdir)/include
+AM_CPPFLAGS = -I\$(top_srcdir)/include
 AM_CFLAGS = -Wall -Wextra
 EOF
 #==========================
