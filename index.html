@@ -365,7 +365,7 @@ https://mermaid.ai/open-source/syntax/classDiagram.html</textarea>
             implementation += `#ifndef ${implNameUpper}\n`;
             implementation += `#define ${implNameUpper}\n\n`;
 
-            implementation += `#include "${className}.hpp"\n\n`;
+            implementation += `#include "libname/${className}.hpp"\n\n`;
             
             implementation += `namespace ${implNamespace}{\n\n`;
             if(implNamespace === Namespace){ 
@@ -399,7 +399,7 @@ https://mermaid.ai/open-source/syntax/classDiagram.html</textarea>
             implementation += `#endif //${implNameUpper}\n`;
 
             let implementationcpp = '';
-            implementationcpp += `#include "${implName}.hpp"\n`;
+            implementationcpp += `#include "libname/${implName}.hpp"\n`;
             implementationcpp += `namespace ${implNamespace}{\n`;
             // Add implementation for each method
             const allMethods = [...priv_methods, ...pub_methods];
