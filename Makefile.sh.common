@@ -52,7 +52,7 @@ lib${LIB_NAME}_la_LDFLAGS = -version-info 1:0:0
 lib${LIB_NAME}_la_SOURCES = ${LIB_NAME}_impl1.cpp ${LIB_NAME}_impl2.cpp
 
 # Публичные заголовки (будут установлены в систему)
-include_HEADERS = ../include/${LIB_NAME}/${LIB_NAME}.hpp ../include/${LIB_NAME}/${LIB_NAME}_impl1.hpp ../include/${LIB_NAME}/${LIB_NAME}_impl2.hpp
+nobase_include_HEADERS = ../include/${LIB_NAME}/${LIB_NAME}.hpp ../include/${LIB_NAME}/${LIB_NAME}_impl1.hpp ../include/${LIB_NAME}/${LIB_NAME}_impl2.hpp
 
 # Дополнительные флаги компиляции
 AM_CPPFLAGS = -I\$(top_srcdir)/include -I\$(top_srcdir)/lib
