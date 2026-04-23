@@ -35,24 +35,24 @@ SUBDIRS = lib src test doc
 EXTRA_DIST = README NEWS ChangeLog AUTHORS $LIB_NAME.pc.in
 
 pkgconfigdir = \$(libdir)/pkgconfig
-pkgconfig_DATA = $LIB_NAME.pc
+pkgconfig_DATA = ${LIB_NAME}.pc
 
 dist_doc_DATA = README NEWS ChangeLog AUTHORS
 EOF
 #===========================
 cat > lib/Makefile.am << EOF
 # Основная библиотека
-lib_LTLIBRARIES = libtestlib.la
+lib_LTLIBRARIES = lib${LIB_NAME}.la
 
 # Версионирование Libtool (CURRENT:REVISION:AGE)
 # Начальная версия: 1:0:0
-libtestlib_la_LDFLAGS = -version-info 1:0:0
+lib${LIB_NAME}_la_LDFLAGS = -version-info 1:0:0
 
 # Исходники библиотеки
-libtestlib_la_SOURCES = testlib_impl1.cpp testlib_impl2.cpp
+lib${LIB_NAME}_la_SOURCES = ${LIB_NAME}_impl1.cpp ${LIB_NAME}_impl2.cpp
 
 # Публичные заголовки (будут установлены в систему)
-include_HEADERS = ../include/testlib/testlib.hpp ../include/testlib/testlib_impl1.hpp ../include/testlib/testlib_impl2.hpp
+include_HEADERS = ../include/${LIB_NAME}/${LIB_NAME}.hpp ../include/${LIB_NAME}/${LIB_NAME}_impl1.hpp ../include/${LIB_NAME}/${LIB_NAME}_impl2.hpp
 
 # Дополнительные флаги компиляции
 AM_CPPFLAGS = -I\$(top_srcdir)/include -I\$(top_srcdir)/lib
@@ -63,7 +63,7 @@ cat > src/Makefile.am << EOF
 bin_PROGRAMS = main
 
 main_SOURCES = main.cpp
-main_LDADD = ../lib/libtestlib.la
+main_LDADD = ../lib/lib${LIB_NAME}.la
 
 AM_CPPFLAGS = -I\$(top_srcdir)/include
 AM_CFLAGS = -Wall -Wextra
@@ -85,6 +85,6 @@ EOF
 #==========================
 cat > doc/Makefile.am << EOF
 # Man страница (опционально)
-# man_MANS = $LIB_NAME.3
+# man_MANS = ${LIB_NAME}.3
 # EXTRA_DIST = \$(man_MANS)
 EOF
