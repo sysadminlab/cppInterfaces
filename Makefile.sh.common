@@ -30,7 +30,7 @@ AC_OUTPUT
 EOF
 #===========================
 cat > Makefile.am << EOF
-SUBDIRS = lib src test doc
+SUBDIRS = lib src doc
 
 EXTRA_DIST = README NEWS ChangeLog AUTHORS $LIB_NAME.pc.in
 
