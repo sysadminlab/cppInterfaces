@@ -23,6 +23,7 @@ jobs:
         run: autoreconf -i
 
       - name: Configure and Build
+        run: |
           cd build
           ../configure
           make
