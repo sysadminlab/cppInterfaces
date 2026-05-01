@@ -1,0 +1,28 @@
+name: Build cppInterfaces
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y autoconf automake build-essential
+
+      - name: Download and Extract source
+        run: |
+          curl -L https://github.com/sysadminlab/cppInterfaces/releases/download/0.0.1/test-0.0.1-alpha.tar.gz -o source.tar.gz
+          tar -xzf source.tar.gz
+          cd test-0.0.1-alpha && mv * .. 
+
+      - name: Autoreconf
+        run: autoreconf -i
+
+      - name: Configure and Build
+          cd build
+          ../configure
+          make
