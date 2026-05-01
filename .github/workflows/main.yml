@@ -17,7 +17,7 @@ jobs:
         run: |
           curl -L https://github.com/sysadminlab/cppInterfaces/releases/download/0.0.1/test-0.0.1-alpha.tar.gz -o source.tar.gz
           tar -xzf source.tar.gz
-          cd test-0.0.1-alpha && mv * .. 
+          cd test && mv * .. 
 
       - name: Autoreconf
         run: autoreconf -i
