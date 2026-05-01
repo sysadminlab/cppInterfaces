@@ -143,7 +143,21 @@
             transform: scale(1.1);
             background-color: #45a049;
         }
-        
+        .github-link {
+            position: absolute; /* Позиционируем относительно границ контейнера */
+            top: 15px;          /* Отступ сверху */
+            right: 15px;        /* Отступ справа */
+            transition: opacity 0.3s; /* Плавность при наведении */
+        }
+
+        .github-link img {
+            width: 32px;        /* Размер иконки */
+            height: 32px;
+            display: block;
+        }
+        .github-link:hover {
+            opacity: 0.7;       /* Эффект при наведении */
+        }
         /* Ensure all elements in dark theme */
         body.dark-theme .container {
             background-color: #2d2d2d;
@@ -178,6 +192,10 @@
 
 <body>
     <div class="container">
+        <a href="https://github.com/sysadminlab/cppInterfaces" target="_blank" class="github-link">
+          <img src="https://githubassets.com" alt="GitHub logo" width="40" height="40">
+        </a>
+
         <h1>C++ Interface Generator</h1>
         <form id="classForm">
             <div class="form-group">
