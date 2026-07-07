@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C++ Interface Generator [2026-04-10]</title>
+    <title>C++ Interface Generator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -354,7 +354,7 @@ https://mermaid.ai/open-source/syntax/classDiagram.html</textarea>
                 output += `    ${method}\n`;
             });
             
-            output += `};\n`;
+            output += `}; // class ${className}\n`;
             output += `} // namespace ${Namespace}\n`; // End of Namespace
             output += `#endif //${classNameUpper}\n`;
             
